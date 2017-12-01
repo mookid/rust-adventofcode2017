@@ -1,0 +1,10 @@
+[package]
+name = "advent-of-code"
+version = "0.1.0"
+authors = ["nathan moreau <nathan.moreau@m4x.org>"]
+
+[[bin]]
+name = "day1"
+path = "src/day1-inverse-captcha.rs"
+
+[dependencies]
