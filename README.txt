@@ -1,1 +1,1 @@
-Run with: cargo run --bin day1 (see names in Cargo.toml).
+Run with: day1 day1-input.txt (see names in Cargo.toml).
