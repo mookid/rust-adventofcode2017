@@ -7,4 +7,8 @@ authors = ["nathan moreau <nathan.moreau@m4x.org>"]
 name = "day1"
 path = "src/day1-inverse-captcha.rs"
 
+[[bin]]
+name = "day2"
+path = "src/day2-corruption-checksum.rs"
+
 [dependencies]
