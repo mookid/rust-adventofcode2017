@@ -11,4 +11,8 @@ path = "src/day1-inverse-captcha.rs"
 name = "day2"
 path = "src/day2-corruption-checksum.rs"
 
+[[bin]]
+name = "day3"
+path = "src/day3-spiral-memory.rs"
+
 [dependencies]
