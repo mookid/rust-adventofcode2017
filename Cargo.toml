@@ -15,4 +15,8 @@ path = "src/day2-corruption-checksum.rs"
 name = "day3"
 path = "src/day3-spiral-memory.rs"
 
+[[bin]]
+name = "day4"
+path = "src/day4-high-entropy-passphrases.rs"
+
 [dependencies]
