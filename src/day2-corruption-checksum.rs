@@ -41,7 +41,7 @@ fn solve(input: &str, even: bool) -> i32 {
         .map(|line|
              line.trim()
              .split(char::is_whitespace)
-             .map(|str| str.trim().parse::<i32>().unwrap()))
+             .map(lib::parse_i32))
         .map(|numbers|
              if even {
                  let numbers : Vec<_> = numbers.collect();

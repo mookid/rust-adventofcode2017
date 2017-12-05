@@ -7,3 +7,7 @@ pub fn read_input_file() -> Result<String, Box<::std::error::Error>> {
     file.read_to_string(&mut input)?;
     Ok(input)
 }
+
+pub fn parse_i32(str: &str) -> i32 {
+    str.parse::<i32>().unwrap()
+}

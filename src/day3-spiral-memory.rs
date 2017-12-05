@@ -1,3 +1,5 @@
+mod lib;
+
 const INPUT : &'static str = "312051";
 
 #[derive(Debug, Copy, Clone)]
@@ -8,7 +10,7 @@ enum CornerKind {
 type Corner = (CornerKind,i32);
 
 fn main() {
-    let input : i32 = INPUT.parse().unwrap();
+    let input = lib::parse_i32(INPUT);
     println!("{}", solve(input));
     println!("{}", solve2(input));
 }
