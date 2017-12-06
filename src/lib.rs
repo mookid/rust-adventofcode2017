@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use ::std::io::Read;
 
 pub fn read_input_file() -> Result<String, Box<::std::error::Error>> {
