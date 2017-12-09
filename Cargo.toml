@@ -31,4 +31,8 @@ path = "src/day6-memory-reallocation.rs"
 name = "day7"
 path = "src/day7-recursive-circus.rs"
 
+[[bin]]
+name = "day8"
+path = "src/day8-registers.rs"
+
 [dependencies]
