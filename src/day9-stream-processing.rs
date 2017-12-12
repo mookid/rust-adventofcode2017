@@ -48,15 +48,13 @@ type Tok = u8;
 
 fn parse(str: &str) -> Option<Group> {
     let mut iter = str.as_bytes().into_iter().cloned();
-    let tok = iter.next();
-    group(tok, &mut iter)
+    group(iter.next(), &mut iter)
 }
 
 fn group<S: Iterator<Item = Tok>>(tok: Option<Tok>, str: &mut S) -> Option<Group> {
     match tok {
         Some(b'{') => {
-            let tok = str.next();
-            group_end(tok, str)
+            group_end(str.next(), str)
         },
         _ => None,
     }
@@ -71,8 +69,7 @@ fn group_end<S: Iterator<Item = Tok>>(tok: Option<Tok>, str: &mut S) -> Option<G
                 tok => tok,
             };
             item(tok, str).and_then(|it| {
-                let tok = str.next();
-                group_end(tok, str).map(|end| Group::Cons(it, std::rc::Rc::new(end)))
+                group_end(str.next(), str).map(|end| Group::Cons(it, std::rc::Rc::new(end)))
             })
         },
         _ => None,
@@ -103,7 +100,7 @@ fn garbage_content<S: Iterator<Item = Tok>>(tok: Option<Tok>, str: &mut S) -> Op
         Some(b'>') => Some(0),
         Some(b'!') => {
             let _ = str.next();
-            garbage_content(str.next(), str).map(|count| count)
+            garbage_content(str.next(), str)
         },
         Some(_) => garbage_content(str.next(), str).map(|count| count + 1),
         _ => None,
