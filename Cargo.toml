@@ -35,4 +35,8 @@ path = "src/day7-recursive-circus.rs"
 name = "day8"
 path = "src/day8-registers.rs"
 
+[[bin]]
+name = "day9"
+path = "src/day9-stream-processing.rs"
+
 [dependencies]
