@@ -32,13 +32,6 @@ const OP_TABLE : [(&'static str, Op); 2] =
         ("dec", Op::Dec),
     ];
 
-fn parse_from<'a, T : Copy>(table: &'a [(&'static str, T)], input: &'a str) -> T {
-
-    table.iter().find(|&&(key, _)| key == input)
-        .map(|&(_, value)| value)
-        .expect(("parse_from ".to_owned() + &input.to_owned()).as_str())
-}
-
 type Item<'a> = (&'a str, Op, i32, (&'a str, Cmp, i32));
 
 fn parse(input: &str) -> Item {
@@ -51,11 +44,11 @@ fn parse(input: &str) -> Item {
     let tok5 = iter.next().unwrap();
     let tok6 = iter.next().unwrap();
     let reg1 = tok0;
-    let op = parse_from(&OP_TABLE, tok1);
+    let op = lib::parse_from(&OP_TABLE, tok1);
     let delta = lib::parse_i32(tok2);
     assert_eq!(tok3, "if");
     let reg2 = tok4;
-    let cmp = parse_from(&CMP_TABLE, tok5);
+    let cmp = lib::parse_from(&CMP_TABLE, tok5);
     let bound = lib::parse_i32(tok6);
     (reg1, op, delta, (reg2, cmp, bound))
 }

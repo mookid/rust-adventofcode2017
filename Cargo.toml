@@ -43,4 +43,8 @@ path = "src/day9-stream-processing.rs"
 name = "day10"
 path = "src/day10-knot-hash.rs"
 
+[[bin]]
+name = "day11"
+path = "src/day11-hex-grid.rs"
+
 [dependencies]
