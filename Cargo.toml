@@ -47,4 +47,8 @@ path = "src/day10-knot-hash.rs"
 name = "day11"
 path = "src/day11-hex-grid.rs"
 
+[[bin]]
+name = "day12"
+path = "src/day12-digital-plumber.rs"
+
 [dependencies]
