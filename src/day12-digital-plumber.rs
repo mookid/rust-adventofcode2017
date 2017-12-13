@@ -24,16 +24,14 @@ fn parse(str: &str) -> Vec<Vec<usize>> {
 fn connected_components(tbl : Vec<Vec<usize>>) -> Vec<i32> {
     let mut all : Vec<i32> = std::iter::repeat(-1).take(tbl.len()).collect();
     for i in 0 .. tbl.len() {
-        if all[i] == -1 {
-            all[i] = i as i32;
-            let mut todo = tbl[i].clone();
-            while let Some(node) = todo.pop() {
-                if all[node] == -1 {
-                    let mut neighbours = tbl[node].clone();
-                    todo.append(&mut neighbours);
-                    all[node] = i as i32;
-                }
-            }
+        all[i] != -1 && continue;
+        all[i] = i as i32;
+        let mut todo = tbl[i].clone();
+        while let Some(node) = todo.pop() {
+            all[node] != -1 && continue;
+            let mut neighbours = tbl[node].clone();
+            todo.append(&mut neighbours);
+            all[node] = i as i32;
         }
     }
     all
