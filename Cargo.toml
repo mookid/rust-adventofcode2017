@@ -51,4 +51,8 @@ path = "src/day11-hex-grid.rs"
 name = "day12"
 path = "src/day12-digital-plumber.rs"
 
+[[bin]]
+name = "day13"
+path = "src/day13-packet-scanners.rs"
+
 [dependencies]
