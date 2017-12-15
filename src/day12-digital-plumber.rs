@@ -29,8 +29,7 @@ fn connected_components(tbl : Vec<Vec<usize>>) -> Vec<i32> {
         let mut todo = tbl[i].clone();
         while let Some(node) = todo.pop() {
             all[node] != -1 && continue;
-            let mut neighbours = tbl[node].clone();
-            todo.append(&mut neighbours);
+            todo.extend_from_slice(&tbl[node]);
             all[node] = i as i32;
         }
     }

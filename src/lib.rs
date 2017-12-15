@@ -21,14 +21,17 @@ pub fn parse_from<'a, T : Copy>(table: &'a [(&'static str, T)], input: &'a str) 
 }
 
 fn hexa2(n:i32) -> Vec<u8> {
-    vec![n / 16, n % 16].iter().cloned().map(hexa).collect()
+    [n / 16, n % 16].iter().cloned().map(hexa).collect()
 }
 
-fn sparse_to_dense(sparse_hash: Vec<i32>) -> Vec<u8> {
-    sparse_hash.chunks(16)
-        .map(|chunk| chunk.iter().cloned().fold(0, |acc, x| acc^x))
-        .flat_map(hexa2)
-        .collect()
+fn sparse_to_dense(sparse: Vec<i32>) -> Vec<u8> {
+    let mut dense : Vec<u8>  = vec![b'0'; sparse.len()/8];
+    dense.chunks_mut(2).zip(sparse.chunks(16))
+        .for_each(|(dense, sparse)| {
+            dense.clone_from_slice(&hexa2(
+                sparse.iter().cloned().fold(0, |acc, x| acc^x)))
+        });
+    dense
 }
 
 fn hexa(n: i32) -> u8 {
@@ -59,7 +62,7 @@ pub fn permute<Iter: Iterator<Item = i32>>(elts: &mut Vec<i32>, st: (i32,i32), i
 pub fn knot_hash(input: &[u8]) -> Vec<u8> {
     let mut elts :Vec<_> = (0..256).collect();
     let mut input : Vec<_> = input.iter().cloned().map(|b| b as i32).collect();
-    input.append(&mut (vec![17, 31, 73, 47, 23]));
+    input.extend_from_slice(&[17, 31, 73, 47, 23]);
     (0..64).fold((0,0), |st,_| permute(&mut elts, st, input.iter().cloned()));
     sparse_to_dense(elts)
 }
