@@ -55,4 +55,8 @@ path = "src/day12-digital-plumber.rs"
 name = "day13"
 path = "src/day13-packet-scanners.rs"
 
+[[bin]]
+name = "day14"
+path = "src/day14-disk-defragmentation.rs"
+
 [dependencies]
