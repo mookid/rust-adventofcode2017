@@ -7,14 +7,14 @@ fn solve(nb_elements: i32, input: &str) -> i32 {
     elts.iter().take(2).cloned().product()
 }
 
-fn solve2(input: &str) -> String {
-    String::from_utf8(lib::knot_hash(input.trim().as_bytes())).unwrap()
+fn solve2(input: &str) -> Option<String> {
+    String::from_utf8(lib::knot_hash(input.trim().as_bytes())).ok()
 }
 
 fn main() {
     let input = lib::read_input_file().unwrap();
     println!("{}", solve(256, &input));
-    println!("{}", solve2(&input));
+    println!("{}", solve2(&input).unwrap());
 }
 
 #[cfg(test)]

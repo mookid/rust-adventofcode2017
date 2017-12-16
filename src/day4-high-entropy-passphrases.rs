@@ -1,8 +1,6 @@
 mod lib;
 
-fn solve(filter_anagrams: bool) -> usize {
-    let input = lib::read_input_file().unwrap();
-    let input = input.trim();
+fn solve(input: &str, filter_anagrams: bool) -> usize {
     input.lines().filter(|line| {
         let mut toks :Vec<_> = line.split(char::is_whitespace)
             .map(String::from)
@@ -25,6 +23,8 @@ fn solve(filter_anagrams: bool) -> usize {
 }
 
 fn main() {
-    println!("{}",solve(false));
-    println!("{}",solve(true));
+    let input = lib::read_input_file().unwrap();
+    let input = input.trim();
+    println!("{}",solve(input, false));
+    println!("{}",solve(input, true));
 }

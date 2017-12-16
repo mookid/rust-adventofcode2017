@@ -57,7 +57,7 @@ fn nsteps<Iter: Iterator<Item = Hex>>(it: Iter) -> i32 {
                    .fold((0,0), |(accx, accy), (x,y)| (accx + x, accy + y)))
 }
 
-fn nsteps_accumulated<Iter: Iterator<Item = Hex>>(it: Iter) -> i32 {
+fn nsteps_accumulated<Iter: Iterator<Item = Hex>>(it: Iter) -> Option<i32> {
     it.map(dir_from_hex)
         .scan((0,0), |acc, (x,y)| {
             let (accx,accy) = *acc;
@@ -66,7 +66,6 @@ fn nsteps_accumulated<Iter: Iterator<Item = Hex>>(it: Iter) -> i32 {
         })
         .map(nsteps_from_xy)
         .max()
-        .unwrap()
 }
 
 fn parse(input: &str) -> Vec<Hex> {
@@ -76,7 +75,7 @@ fn parse(input: &str) -> Vec<Hex> {
 fn main() {
     let input = parse(&lib::read_input_file().unwrap());
     println!("{}", nsteps(input.iter().cloned()));
-    println!("{}", nsteps_accumulated(input.iter().cloned()));
+    println!("{}", nsteps_accumulated(input.iter().cloned()).unwrap());
 }
 
 #[cfg(test)]

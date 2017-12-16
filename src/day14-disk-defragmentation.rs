@@ -64,7 +64,7 @@ fn solve2(input: &str) -> usize {
     };
 
     let mut visited = [false; GRID_SIZE*GRID_SIZE];
-    let res = (0..grid.len()).fold(0,|acc, x| {
+    (0..grid.len()).fold(0,|acc, x| {
         if !visited[x] && grid[x] == b'1' {
             let mut todo = vec![x];
             while let Some(y) = todo.pop() {
@@ -79,9 +79,7 @@ fn solve2(input: &str) -> usize {
         } else {
             acc
         }
-    });
-
-    res
+    })
 }
 
 fn main() {

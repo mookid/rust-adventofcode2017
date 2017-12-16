@@ -1,23 +1,26 @@
 mod lib;
 
-fn parse(str: &str) -> Vec<Vec<usize>> {
+fn parse(str: &str) -> Option<Vec<Vec<usize>>> {
     fn delimiter_or_comma(c: char) -> bool {
         match c {
             ',' => true,
             c => char::is_whitespace(c),
         }
     };
+    fn parse_line((i, line): (usize, &str)) -> Option<Vec<usize>> {
+        let mut iter = line.split(delimiter_or_comma)
+            .filter(|&str| str != "");
+        let fst = iter.next()?;
+        let snd = iter.next()?;
+        if lib::parse_i32(fst) as usize == i && snd == "<->" {
+            Some(iter.map(|str| lib::parse_i32(str) as usize).collect())
+        } else {
+            None
+        }
+    };
     str.trim().lines()
         .enumerate()
-        .map(|(i, line)| {
-            let mut iter = line.split(delimiter_or_comma)
-                .filter(|&str| str != "");
-            let fst = iter.next();
-            let snd = iter.next();
-            assert_eq!(lib::parse_i32(fst.unwrap()) as usize, i);
-            assert_eq!(snd.unwrap(), "<->");
-            iter.map(|str| lib::parse_i32(str) as usize).collect()
-        })
+        .map(parse_line)
         .collect()
 }
 
@@ -48,7 +51,8 @@ fn count_components(connected_components: &Vec<i32>) -> usize {
 }
 
 fn main() {
-    let tbl = parse(&lib::read_input_file().unwrap());
+    let str = lib::read_input_file().unwrap();
+    let tbl = parse(&str).unwrap();
     let components = connected_components(tbl);
     println!("{}", component_size(&components, 0));
     println!("{}", count_components(&components));
@@ -67,7 +71,7 @@ mod tests {
 4 <-> 2, 3, 6
 5 <-> 6
 6 <-> 4, 5
-"#);
+"#).unwrap();
         println!("{:?}", tbl);
         assert_eq!(tbl, vec![
             vec![2],

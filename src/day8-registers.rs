@@ -34,26 +34,29 @@ const OP_TABLE : [(&'static str, Op); 2] =
 
 type Item<'a> = (&'a str, Op, i32, (&'a str, Cmp, i32));
 
-fn parse(input: &str) -> Item {
+fn parse(input: &str) -> Option<Item> {
     let mut iter = input.split(char::is_whitespace);
-    let tok0 = iter.next().unwrap();
-    let tok1 = iter.next().unwrap();
-    let tok2 = iter.next().unwrap();
-    let tok3 = iter.next().unwrap();
-    let tok4 = iter.next().unwrap();
-    let tok5 = iter.next().unwrap();
-    let tok6 = iter.next().unwrap();
+    let tok0 = iter.next()?;
+    let tok1 = iter.next()?;
+    let tok2 = iter.next()?;
+    let tok3 = iter.next()?;
+    let tok4 = iter.next()?;
+    let tok5 = iter.next()?;
+    let tok6 = iter.next()?;
     let reg1 = tok0;
     let op = lib::parse_from(&OP_TABLE, tok1);
     let delta = lib::parse_i32(tok2);
-    assert_eq!(tok3, "if");
-    let reg2 = tok4;
-    let cmp = lib::parse_from(&CMP_TABLE, tok5);
-    let bound = lib::parse_i32(tok6);
-    (reg1, op, delta, (reg2, cmp, bound))
+    if tok3 == "if" {
+        let reg2 = tok4;
+        let cmp = lib::parse_from(&CMP_TABLE, tok5);
+        let bound = lib::parse_i32(tok6);
+        Some((reg1, op, delta, (reg2, cmp, bound)))
+    } else {
+        None
+    }
 }
 
-fn largest_register_value(input: &Vec<Item>, safe: bool) -> i32 {
+fn largest_register_value(input: &Vec<Item>, safe: bool) -> Option<i32> {
     let mut max = 0;
     let mut env = std::collections::HashMap::new();
     input.iter()
@@ -79,15 +82,16 @@ fn largest_register_value(input: &Vec<Item>, safe: bool) -> i32 {
             }
         });
     if safe {
-        max
+        Some(max)
     } else {
-        env.iter().map(|(_, value)| *value).max().unwrap()
+        env.iter().map(|(_, value)| *value).max()
     }
 }
 
 fn main() {
     let input = lib::read_input_file().unwrap();
-    let input : Vec<_> = input.as_str().trim().lines().map(parse).collect();
-    println!("{}", largest_register_value(&input, false));
-    println!("{}", largest_register_value(&input, true));
+    let input : Option<Vec<_>> = input.as_str().trim().lines().map(parse).collect();
+    let input = input.unwrap();
+    println!("{}", largest_register_value(&input, false).unwrap());
+    println!("{}", largest_register_value(&input, true).unwrap());
 }

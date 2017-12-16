@@ -1,13 +1,13 @@
 mod lib;
 
-fn parse(str: &str) -> Vec<(i32,i32)> {
+fn parse(str: &str) -> Option<Vec<(i32,i32)>> {
     str.trim().lines()
         .map(|s| {
             let mut it = s.split(|s| s == ':' || char::is_whitespace(s))
                 .filter(|&s| s != "");
-            let fst = lib::parse_i32(it.next().unwrap());
-            let snd = lib::parse_i32(it.next().unwrap());
-            (fst, snd)
+            let fst = lib::parse_i32(it.next()?);
+            let snd = lib::parse_i32(it.next()?);
+            Some((fst, snd))
         })
         .collect()
 }
@@ -36,7 +36,7 @@ fn find_best_delay(input: &Vec<(i32,i32)>) -> i32 {
 }
 
 fn main() {
-    let input = parse(&lib::read_input_file().unwrap());
+    let input = parse(&lib::read_input_file().unwrap()).unwrap();
     println!("{:?}", total_severity(&input));
     println!("{:?}", find_best_delay(&input));
 }
@@ -52,7 +52,7 @@ mod tests {
 4: 4
 6: 4
 "#;
-        let input = parse(str);
+        let input = parse(str).unwrap();
         assert_eq!(total_severity(&input), 24);
         assert_eq!(find_best_delay(&input), 10);
     }

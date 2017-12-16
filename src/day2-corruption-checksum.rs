@@ -13,13 +13,13 @@ fn min_max<Iter, T>(mut numbers : Iter) -> std::option::Option<(T,T)>
     })
 }
 
-fn solve_line1<Iter>(numbers: Iter) -> i32
+fn solve_line1<Iter>(numbers: Iter) -> Option<i32>
     where Iter : Iterator<Item = i32>,
 {
-    min_max(numbers).map(|(min,max)| max - min).unwrap()
+    min_max(numbers).map(|(min,max)| max - min)
 }
 
-fn solve_line2(numbers: &Vec<i32>) -> std::option::Option<i32>
+fn solve_line2(numbers: &Vec<i32>) -> Option<i32>
 {
     let len = numbers.len();
     for i in 0..len {
@@ -36,24 +36,31 @@ fn solve_line2(numbers: &Vec<i32>) -> std::option::Option<i32>
     None
 }
 
-fn solve(input: &str, even: bool) -> i32 {
-    input.lines()
+fn solve(input: &str, even: bool) -> Option<i32> {
+    let mut iter = input.lines()
         .map(|line|
              line.trim()
              .split(char::is_whitespace)
              .map(lib::parse_i32))
         .map(|numbers|
              if even {
-                 let numbers : Vec<_> = numbers.collect();
-                 solve_line2(&numbers).unwrap()
+                 solve_line2(&numbers.collect())
              } else {
                  solve_line1(numbers)
-             })
-        .sum()
+             });
+    let mut acc = 0;
+    while let Some(x) = iter.next() {
+        if let Some(x) = x {
+            acc += x;
+        } else {
+            return None
+        }
+    }
+    Some(acc)
 }
 
 fn main() {
     let input = lib::read_input_file().unwrap();
-    println!("{}", solve(&input, false));
-    println!("{}", solve(&input, true));
+    println!("{}", solve(&input, false).unwrap());
+    println!("{}", solve(&input, true).unwrap());
 }
