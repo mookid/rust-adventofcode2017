@@ -19,8 +19,7 @@ fn solve_line1<Iter>(numbers: Iter) -> Option<i32>
     min_max(numbers).map(|(min,max)| max - min)
 }
 
-fn solve_line2(numbers: &Vec<i32>) -> Option<i32>
-{
+fn solve_line2(numbers: &Vec<i32>) -> Option<i32> {
     let len = numbers.len();
     for i in 0..len {
         let x = numbers[i];

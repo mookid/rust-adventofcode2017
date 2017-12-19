@@ -85,7 +85,7 @@ fn parse_line(line: &str) -> Option<Move> {
 }
 
 fn init(nb_chars: usize) -> (Vec<u8>, usize) {
-    ((b'a'..).take(nb_chars).collect::<Vec<_>>(), 0)
+    ((b'a'..).take(nb_chars).collect(), 0)
 }
 
 fn solve<Iter: Iterator<Item = Move>>(nb_chars: usize, input: Iter) -> Option<String> {
@@ -94,7 +94,7 @@ fn solve<Iter: Iterator<Item = Move>>(nb_chars: usize, input: Iter) -> Option<St
 
 fn solve2(nb_chars: usize, input: Vec<Move>) -> Option<String> {
     let mut st = init(nb_chars);
-    let mut past_states : Vec<String> = vec![];
+    let mut past_states = vec![];
     loop {
         let cur_st = reorder(st.clone())?;
         match past_states.iter().position(|ref x| **x == cur_st) {

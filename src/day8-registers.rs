@@ -90,8 +90,7 @@ fn largest_register_value(input: &Vec<Item>, safe: bool) -> Option<i32> {
 
 fn main() {
     let input = lib::read_input_file().unwrap();
-    let input : Option<Vec<_>> = input.as_str().trim().lines().map(parse).collect();
-    let input = input.unwrap();
+    let input = input.as_str().trim().lines().map(parse).collect::<Option<Vec<_>>>().unwrap();
     println!("{}", largest_register_value(&input, false).unwrap());
     println!("{}", largest_register_value(&input, true).unwrap());
 }

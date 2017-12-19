@@ -25,7 +25,7 @@ fn hexa2(n:i32) -> Vec<u8> {
 }
 
 fn sparse_to_dense(sparse: Vec<i32>) -> Vec<u8> {
-    let mut dense : Vec<u8>  = vec![b'0'; sparse.len()/8];
+    let mut dense = vec![b'0'; sparse.len()/8];
     dense.chunks_mut(2).zip(sparse.chunks(16))
         .for_each(|(dense, sparse)| {
             dense.clone_from_slice(&hexa2(
@@ -60,8 +60,8 @@ pub fn permute<Iter: Iterator<Item = i32>>(elts: &mut Vec<i32>, st: (i32,i32), i
 }
 
 pub fn knot_hash(input: &[u8]) -> Vec<u8> {
-    let mut elts :Vec<_> = (0..256).collect();
-    let mut input : Vec<_> = input.iter().cloned().map(|b| b as i32).collect();
+    let mut elts = (0..256).collect::<Vec<_>>();
+    let mut input = input.iter().cloned().map(|b| b as i32).collect::<Vec<_>>();
     input.extend_from_slice(&[17, 31, 73, 47, 23]);
     (0..64).fold((0,0), |st,_| permute(&mut elts, st, input.iter().cloned()));
     sparse_to_dense(elts)

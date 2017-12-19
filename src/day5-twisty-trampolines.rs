@@ -1,9 +1,9 @@
 mod lib;
 
 fn main() {
-    let input : Vec<_> = lib::read_input_file().unwrap().trim()
+    let input = lib::read_input_file().unwrap().trim()
         .lines().map(lib::parse_i32)
-        .collect();
+        .collect::<Vec<_>>();
     println!("{}", solve(&input, false));
     println!("{}", solve(&input, true));
 }

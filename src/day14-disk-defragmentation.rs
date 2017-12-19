@@ -93,8 +93,7 @@ mod tests {
     #[test]
     fn test1() {
         let x = hex_to_bin(&lib::knot_hash("flqrgnkx-0".as_bytes()));
-        let x : Vec<_> = x.iter().cloned().take(8).collect();
-        assert_eq!(&x, &[b'1', b'1', b'0', b'1', b'0', b'1', b'0', b'0'])
+        assert_eq!(&x.iter().cloned().take(8).collect::<Vec<_>>(), &[b'1', b'1', b'0', b'1', b'0', b'1', b'0', b'0'])
     }
 
     #[test]

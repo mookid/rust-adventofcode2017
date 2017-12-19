@@ -2,16 +2,15 @@ mod lib;
 
 fn solve(input: &str, filter_anagrams: bool) -> usize {
     input.lines().filter(|line| {
-        let mut toks :Vec<_> = line.split(char::is_whitespace)
+        let mut toks = line.split(char::is_whitespace)
             .map(String::from)
-            .collect();
+            .collect::<Vec<_>>();
         let count_all = toks.len();
         if filter_anagrams {
             toks.iter_mut().for_each(|tok| {
-                use std::iter::FromIterator;
-                let mut chars : Vec<_> = tok.chars().collect();
+                let mut chars = tok.chars().collect::<Vec<_>>();
                 chars.sort();
-                std::mem::replace(tok, String::from_iter(chars));
+                std::mem::replace(tok, chars.iter().collect::<String>());
             })
         };
         toks.sort();

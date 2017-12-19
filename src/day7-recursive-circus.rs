@@ -19,17 +19,17 @@ fn parse(line: &str) -> Option<Item> {
     let mut iter = line.split(is_delimiter).filter(|str| 0 < str.len());
     let name = iter.next()?;
     let snd = iter.next()?;
-    let subs: Vec<_> = iter.collect();
     Some(Item {
         name,
         weight: lib::parse_i32(snd),
-        subs,
+        subs: iter.collect::<Vec<_>>(),
     })
 }
 
 fn find_root<'a>(items : &'a Vec<Item>) -> Option<&'a str> {
-    let all_hold_programs : std::collections::HashSet<&str> =
-        items.iter().flat_map(|&Item{ref subs, ..}| subs).cloned().collect();
+    let all_hold_programs =
+        items.iter().flat_map(|&Item{ref subs, ..}| subs).cloned()
+        .collect::<std::collections::HashSet<_>>();
     let all_programs = items.iter().map(|&Item{ref name, ..}| name).cloned().collect();
     let roots = &all_programs - &all_hold_programs;
     roots.iter().cloned().nth(0)
@@ -105,8 +105,7 @@ fn find_adjusted_weight(items : &Vec<Item>, root: &str) -> i32 {
 
 fn main() {
     let input = lib::read_input_file().unwrap();
-    let input : Option<Vec<_>> = input.lines().map(parse).collect();
-    let input = input.unwrap();
+    let input = input.lines().map(parse).collect::<Option<Vec<_>>>().unwrap();
     let root = find_root(&input).unwrap();
     println!("{}", root);
     println!("{}", find_adjusted_weight(&input, &root))

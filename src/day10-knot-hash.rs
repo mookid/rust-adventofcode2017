@@ -2,7 +2,7 @@ mod lib;
 
 fn solve(nb_elements: i32, input: &str) -> i32 {
     let input = input.trim().split(",").map(lib::parse_i32);
-    let mut elts :Vec<_> = (0..nb_elements).collect();
+    let mut elts = (0..nb_elements).collect::<Vec<_>>();
     lib::permute(&mut elts, (0,0), input);
     elts.iter().take(2).cloned().product()
 }

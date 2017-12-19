@@ -13,7 +13,13 @@ fn parse(str: &str) -> Option<Vec<Vec<usize>>> {
         let fst = iter.next()?;
         let snd = iter.next()?;
         if lib::parse_i32(fst) as usize == i && snd == "<->" {
-            Some(iter.map(|str| lib::parse_i32(str) as usize).collect())
+            iter.map(|str| lib::parse_i32(str))
+                .map(|i32| if 0 <= i32 {
+                    Some(i32 as usize)
+                } else {
+                    None
+                })
+                .collect()
         } else {
             None
         }
@@ -25,7 +31,7 @@ fn parse(str: &str) -> Option<Vec<Vec<usize>>> {
 }
 
 fn connected_components(tbl : Vec<Vec<usize>>) -> Vec<i32> {
-    let mut all : Vec<i32> = std::iter::repeat(-1).take(tbl.len()).collect();
+    let mut all = std::iter::repeat(-1).take(tbl.len()).collect::<Vec<_>>();
     for i in 0 .. tbl.len() {
         all[i] != -1 && continue;
         all[i] = i as i32;

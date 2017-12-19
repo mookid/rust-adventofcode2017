@@ -30,10 +30,10 @@ fn solve(blocks : &Vec<i32>, loop_size: bool) -> Option<i32> {
 
 fn main() {
     let input = lib::read_input_file().unwrap();
-    let input : Vec<i32> = input.trim()
+    let input = input.trim()
         .split(char::is_whitespace)
         .map(lib::parse_i32)
-        .collect();
+        .collect::<Vec<_>>();
     println!("{}", solve(&input, false).unwrap());
     println!("{}", solve(&input, true).unwrap());
 }
