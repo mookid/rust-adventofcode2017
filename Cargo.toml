@@ -59,4 +59,12 @@ path = "src/day13-packet-scanners.rs"
 name = "day14"
 path = "src/day14-disk-defragmentation.rs"
 
+[[bin]]
+name = "day15"
+path = "src/day15-dueling-generators.rs"
+
+[[bin]]
+name = "day16"
+path = "src/day16-permutation-promenade.rs"
+
 [dependencies]
