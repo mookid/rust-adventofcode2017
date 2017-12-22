@@ -71,4 +71,8 @@ path = "src/day16-permutation-promenade.rs"
 name = "day17"
 path = "src/day17-spinlock.rs"
 
+[[bin]]
+name = "day18"
+path = "src/day18-duet.rs"
+
 [dependencies]
