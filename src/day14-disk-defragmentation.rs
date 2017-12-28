@@ -1,7 +1,6 @@
 #![feature(splice)]
 mod lib;
 
-const INPUT : &'static str = "ugkiagan";
 const GRID_SIZE : usize = 128;
 
 fn bits_of_hexa(hex: u8) -> &'static [u8] {
@@ -83,8 +82,10 @@ fn solve2(input: &str) -> usize {
 }
 
 fn main() {
-    println!("{}", solve(INPUT));
-    println!("{}", solve2(INPUT));
+    let input = lib::read_input_file().unwrap();
+    let input = input.trim();
+    println!("{}", solve(input));
+    println!("{}", solve2(input));
 }
 
 #[cfg(test)]
