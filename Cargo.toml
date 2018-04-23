@@ -75,4 +75,8 @@ path = "src/day17-spinlock.rs"
 name = "day18"
 path = "src/day18-duet.rs"
 
+[[bin]]
+name = "day19"
+path = "src/day19-tubes.rs"
+
 [dependencies]
