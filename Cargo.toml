@@ -79,4 +79,8 @@ path = "src/day18-duet.rs"
 name = "day19"
 path = "src/day19-tubes.rs"
 
+[[bin]]
+name = "day20"
+path = "src/day20-particles.rs"
+
 [dependencies]
