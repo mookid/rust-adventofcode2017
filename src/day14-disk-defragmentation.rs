@@ -1,4 +1,3 @@
-#![feature(splice)]
 mod lib;
 
 const GRID_SIZE : usize = 128;
