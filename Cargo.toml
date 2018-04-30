@@ -83,4 +83,8 @@ path = "src/day19-tubes.rs"
 name = "day20"
 path = "src/day20-particles.rs"
 
+[[bin]]
+name = "day21"
+path = "src/day21-fractal.rs"
+
 [dependencies]
