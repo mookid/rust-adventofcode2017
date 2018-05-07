@@ -87,4 +87,8 @@ path = "src/day20-particles.rs"
 name = "day21"
 path = "src/day21-fractal.rs"
 
+[[bin]]
+name = "day22"
+path = "src/day22-virus.rs"
+
 [dependencies]
